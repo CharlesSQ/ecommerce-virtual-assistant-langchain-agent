@@ -2,10 +2,10 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain.agents import LLMSingleActionAgent, AgentExecutor, Tool
 from langchain.chat_models import ChatOpenAI
 from langchain import LLMChain
-from agent_prompts import PREFIX, SUFFIX, FORMAT_INSTRUCTIONS
-from agent_prompt_template import CustomPromptTemplate
-from agent_output_parser import CustomOutputParsers
-from tool.get_business_data import LLM_get_business_data, GetBusinessDataInput
+from agents.agent_prompts import PREFIX, SUFFIX, FORMAT_INSTRUCTIONS
+from agents.agent_prompt_template import CustomPromptTemplate
+from agents.agent_output_parser import CustomOutputParsers
+from agents.tool.get_business_data import LLM_get_business_data, GetBusinessDataInput
 
 
 # Set OpenAI LLM and embeddings
@@ -50,7 +50,7 @@ agent = LLMSingleActionAgent(
     stop=["\nObservation:"],
     allowed_tools=tool_names,
 )
-agent_executor = AgentExecutor.from_agent_and_tools(
+business_faq_agent = AgentExecutor.from_agent_and_tools(
     agent=agent, tools=tools, max_iterations=3, verbose=True)
 
-agent_executor.run('atiende los domingos y puedo pagar en efectivo?')
+# agent_executor.run('atiende los domingos y puedo pagar en efectivo?')

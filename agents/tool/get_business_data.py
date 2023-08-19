@@ -1,3 +1,4 @@
+import os
 from langchain.prompts.chat import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
@@ -7,6 +8,9 @@ from pydantic import BaseModel, Field
 from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
+from config import OPENAI_API_KEY
+
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 
 business_data = """
@@ -38,7 +42,7 @@ chat_prompt = ChatPromptTemplate.from_messages(
     [system_message_prompt, human_message_prompt])
 
 
-# Set OpenAI LLM and embeddings
+# Set OpenAI LLM
 llm_chat = ChatOpenAI(temperature=0.9, max_tokens=150,
                       model='gpt-3.5-turbo-0613', client='')
 
@@ -50,3 +54,7 @@ LLM_get_business_data = LLMChain(
 
 class GetBusinessDataInput(BaseModel):
     question: str = Field()
+
+
+# LLM_get_business_data.predict(
+#     content=business_data, text='Atiende los domingos y puedo pagar con tarjeta?')

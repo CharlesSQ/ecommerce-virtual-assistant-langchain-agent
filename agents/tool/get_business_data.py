@@ -9,10 +9,6 @@ from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 
 
-import os
-os.environ["OPENAI_API_KEY"] = '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'
-
-
 business_data = """
 opening_hours: "Monday to Friday 8:00 am to 5:00 pm, Saturday 8:00 am to 12:00 pm, break 12:00 pm to 1:00 pm",
 phone_number: "1234567890",
@@ -54,7 +50,3 @@ LLM_get_business_data = LLMChain(
 
 class GetBusinessDataInput(BaseModel):
     question: str = Field()
-
-
-# LLM_get_business_data.predict(
-#     content=business_data, text='Atiende los domingos y puedo pagar con tarjeta?')
